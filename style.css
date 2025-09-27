@@ -2,68 +2,79 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex; /* Для центрирования и вертикального расположения элементов */
+    display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh; /* Минимальная высота на весь экран */
-    background-color: #f4f4f9; /* Легкий фон */
+    min-height: 100vh;
+    background-color: #f4f4f9;
 }
 
-/* Текст заголовка */
+/* --- Заголовок --- */
 .header-text {
     width: 90%;
+    max-width: 800px;
     text-align: center;
     padding: 15px 10px;
     margin: 15px 0;
     font-size: 1.2em;
     font-weight: bold;
     color: #333;
-    background-color: #ffe0b2; /* Цвет фона для заголовка */
+    background-color: #ffe0b2;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Общий контейнер для окон-демонстраций */
-.container {
-    width: 95%; /* Ширина на мобильном устройстве */
-    max-width: 600px; /* Максимальная ширина для больших экранов */
-    height: 40vh; /* Высота каждого окна - 40% от высоты экрана */
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    /* **Закругленные углы** */
-    border-radius: 20px;
-    overflow: hidden; /* Обрезаем содержимое по границам контейнера */
+/* --- Контейнер для двух фреймов (для центрирования и расположения) --- */
+.frames-wrapper {
+    display: flex; /* Активируем Flexbox */
+    justify-content: center; /* Центрируем фреймы по горизонтали */
+    align-items: flex-start; /* Выравнивание по верхнему краю */
+    width: 100%;
+    padding: 20px 0;
+    gap: 30px; /* Расстояние между окнами */
 }
 
-/* Стилизация iFrame */
-iframe {
+/* --- Общий контейнер для одного окна (9:16) --- */
+.container.phone-frame {
+    /* Ширина, которую будет занимать фрейм. 
+       Сделаем его достаточно узким, чтобы было место для двух фреймов. */
+    width: 200px; /* Например, фиксированная ширина 200px */
+    max-width: 30vw; /* Или максимальная ширина 30% от viewport */
+    
+    /* Трюк для создания соотношения 9:16 (высота = ширина * (16/9)) */
+    height: 0;
+    /* 16 / 9 * 100% = 177.777...% */
+    padding-top: calc(100% * 16 / 9); /* Устанавливаем высоту относительно ширины */
+    
+    position: relative; /* Необходим для позиционирования iframe внутри */
+    
+    border: 5px solid #333; /* Рамка вокруг "телефона" */
+    border-radius: 25px; /* Закругленные углы для всего окна */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* --- Стилизация iFrame внутри контейнера --- */
+.phone-frame iframe {
+    position: absolute; /* Позиционируем iframe, чтобы он занимал всю область */
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    border: none; /* Убираем стандартную рамку iFrame */
-    display: block;
+    border: none;
 }
 
-/* Конкретное позиционирование, если нужно */
-.top-frame {
-    /* Стили для верхнего окна */
-    /* Здесь можно добавить отступ сверху, если нужно */
-}
-
-.bottom-frame {
-    /* Стили для нижнего окна */
-}
-
-/* Адаптация для мобильных устройств (убедитесь, что мета-тег viewport есть в HTML) */
-@media (max-width: 768px) {
-    .container {
-        width: 98%;
-        height: 40vh; /* Высота остается */
-        margin-bottom: 15px;
+/* --- Адаптация для очень маленьких экранов (телефонов) --- */
+@media (max-width: 650px) {
+    .frames-wrapper {
+        flex-direction: column; /* На маленьких экранах ставим их друг под другом */
+        align-items: center; /* Центрируем по горизонтали */
+        gap: 20px;
     }
-    .header-text {
-        font-size: 1.1em;
-        padding: 12px 8px;
-        margin: 10px 0;
+    
+    .container.phone-frame {
+        width: 60%; /* Увеличим ширину, чтобы лучше смотрелось на мобильном */
+        max-width: 250px;
+        /* Соотношение 9:16 сохраняется благодаря padding-top */
     }
 }
