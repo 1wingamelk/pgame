@@ -1,80 +1,132 @@
+:root {
+    --primary-color: #FF8C00; /* Ярко-оранжевый */
+    --secondary-color: #222222; /* Темно-серый/Черный */
+    --text-color: #FFFFFF;
+    --background-color: #1a1a1a; /* Черный фон */
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 600px; /* Ограничиваем контент для мобильного вида */
+    padding: 20px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    background-color: #f4f4f9;
 }
 
-/* --- Заголовок --- */
-.header-text {
-    width: 90%;
-    max-width: 800px;
-    text-align: center;
-    padding: 15px 10px;
-    margin: 15px 0;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333;
-    background-color: #ffe0b2;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* --- Контейнер для двух фреймов (для центрирования и расположения) --- */
-.frames-wrapper {
-    display: flex; /* Активируем Flexbox */
-    justify-content: center; /* Центрируем фреймы по горизонтали */
-    align-items: flex-start; /* Выравнивание по верхнему краю */
+/* --- Секция Видео-плеер 16:9 --- */
+.video-container {
     width: 100%;
-    padding: 20px 0;
-    gap: 30px; /* Расстояние между окнами */
-}
-
-/* --- Общий контейнер для одного окна (9:16) --- */
-.container.phone-frame {
-    /* Ширина, которую будет занимать фрейм. 
-       Сделаем его достаточно узким, чтобы было место для двух фреймов. */
-    width: 200px; /* Например, фиксированная ширина 200px */
-    max-width: 30vw; /* Или максимальная ширина 30% от viewport */
-    
-    /* Трюк для создания соотношения 9:16 (высота = ширина * (16/9)) */
-    height: 0;
-    /* 16 / 9 * 100% = 177.777...% */
-    padding-top: calc(100% * 16 / 9); /* Устанавливаем высоту относительно ширины */
-    
-    position: relative; /* Необходим для позиционирования iframe внутри */
-    
-    border: 5px solid #333; /* Рамка вокруг "телефона" */
-    border-radius: 25px; /* Закругленные углы для всего окна */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     overflow: hidden;
 }
 
-/* --- Стилизация iFrame внутри контейнера --- */
-.phone-frame iframe {
-    position: absolute; /* Позиционируем iframe, чтобы он занимал всю область */
+.video-player {
+    /* Трюк для создания соотношения 16:9 */
+    width: 100%;
+    position: relative;
+    padding-top: 56.25%; /* (9 / 16) * 100% = 56.25% */
+}
+
+#video-display {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    border: none;
+    border-radius: 10px;
+    object-fit: cover; /* Убеждаемся, что видео занимает весь контейнер */
 }
 
-/* --- Адаптация для очень маленьких экранов (телефонов) --- */
-@media (max-width: 650px) {
-    .frames-wrapper {
-        flex-direction: column; /* На маленьких экранах ставим их друг под другом */
-        align-items: center; /* Центрируем по горизонтали */
-        gap: 20px;
-    }
-    
-    .container.phone-frame {
-        width: 60%; /* Увеличим ширину, чтобы лучше смотрелось на мобильном */
-        max-width: 250px;
-        /* Соотношение 9:16 сохраняется благодаря padding-top */
-    }
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--text-color);
+    border: none;
+    padding: 15px 10px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.5em;
+    transition: background 0.3s;
+}
+
+.nav-btn:hover {
+    background: var(--primary-color);
+}
+
+.left-nav {
+    left: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.right-nav {
+    right: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.video-counter {
+    text-align: center;
+    padding: 5px;
+    font-size: 0.9em;
+    color: var(--primary-color);
+}
+
+/* --- Секция Бонусный текст --- */
+.bonus-text {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+.bonus-text h2 {
+    color: var(--primary-color);
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.bonus-text p {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+
+/* --- Секция Кнопка CTA --- */
+.cta-button {
+    display: block;
+    width: 90%;
+    max-width: 350px;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: var(--secondary-color); /* Темный текст на оранжевом */
+    background-color: var(--primary-color);
+    border-radius: 50px; /* Очень закругленная кнопка */
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 5px 15px rgba(255, 140, 0, 0.4);
+}
+
+.cta-button:hover {
+    background-color: #FFA500; /* Чуть светлее при наведении */
+    transform: translateY(-2px);
 }
