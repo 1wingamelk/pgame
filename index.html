@@ -3,24 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Демонстрация Сайта (9:16)</title>
+    <title>Видео-бонус (16:9)</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-    <div class="header-text">
-        Бонус за просмотр +500% к первому депозиту
-    </div>
+    <main class="content-wrapper">
+        
+        <div class="video-container">
+            <div class="video-player">
+                <video id="video-display" controls poster="poster.jpg">
+                    <source src="video1.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает тег video.
+                </video>
 
-    <div class="frames-wrapper">
-        <div class="container phone-frame left-frame">
-            <iframe src="https://www.xv-ru.com/" id="link1" title="Ссылка 1 Демо"></iframe>
+                <button id="prev-btn" class="nav-btn left-nav"><i class="fas fa-chevron-left"></i></button>
+                
+                <button id="next-btn" class="nav-btn right-nav"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div id="video-counter" class="video-counter">1 / 10</div>
         </div>
 
-        <div class="container phone-frame right-frame">
-            <iframe src="https://1wihrq.life/casino/?p=ca1u" id="link2" title="Ссылка 2 Демо"></iframe>
+        <div class="bonus-text">
+            <h2>За просмотр тебе будет доступен бонус 500% к первому депозиту</h2>
+            <p>Внеси 2000₽ получи 10000₽</p>
         </div>
-    </div>
 
+        <a href="https://1wbqgq.com/v3/3316/motive-video-promo?p=r28f" target="_blank" class="cta-button">
+            Начать Зарабатывать
+        </a>
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
